@@ -1,4 +1,4 @@
-package com.marsyoung.demo.core.constants;
+package com.marsyoung.dubbo.core.constants;
 
 public class DubboDemoConstans {
 

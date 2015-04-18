@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="  
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">  
+  
+    <!--  import resource="classpath:spring/spring-redis.xml"/>-->
+    
+    <context:component-scan base-package="com.marsyoung.dubbo.core.service.impl" annotation-config="true" />
+    
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="DubboDemoServiceProvider" />
+	<!-- 使用multicast广播注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
+ 	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20880"></dubbo:protocol>
+	<!-- 服务提供者过期时间配置 -->
+	<dubbo:provider timeout="1000000" retries="0" />
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.marsyoung.dubbo.api.service.MarsBaseService" ref="marsBaseService"></dubbo:service>
+    
+</beans>  
